@@ -1,0 +1,46 @@
+@import '../../../styles/variables';
+
+.inputWrapper {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #b3b3b3;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: #e50914;
+    background-color: #404040;
+  }
+
+  &::placeholder {
+    color: #808080;
+  }
+
+  &.error {
+    border-color: #e50914;
+  }
+}
+
+.errorMessage {
+  display: block;
+  margin-top: 0.5rem;
+  color: #e50914;
+  font-size: 0.85rem;
+}
