@@ -17,6 +17,9 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
     loginSuccess: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
       state.isAuthenticated = true;
@@ -41,10 +44,10 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout, clearError } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, clearError, setLoading } = authSlice.actions;
 
 // Simple login action (you can add API call later)
-export const loginUser = (credentials: LoginCredentials) => (dispatch: any) => {
+export const loginUser = (credentials: LoginCredentials ) => (dispatch: any) => {
   dispatch(loginStart());
   
   // Simulate API call
@@ -55,6 +58,7 @@ export const loginUser = (credentials: LoginCredentials) => (dispatch: any) => {
         id: Date.now().toString(),
         email: credentials.email,
         name: credentials.email.split('@')[0],
+        loginType: 'email'
       };
       dispatch(loginSuccess(user));
     } else {

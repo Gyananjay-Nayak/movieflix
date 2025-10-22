@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAuth0 } from '@auth0/auth0-react';
 import { loginUser, clearError } from '../../../store/slices/authSlice';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import styles from './LoginForm.module.scss';
 
 const LoginForm: React.FC = () => {
-  const dispatch = useDispatch();
+  const { loginWithPopup } = useAuth0();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { loading, error, isAuthenticated } = useSelector((state) => state.auth);
+  const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -51,11 +53,20 @@ const LoginForm: React.FC = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (validateForm()) {
-      dispatch(loginUser({ email, password }));
+     if (validateForm()) {
+      try {
+        await loginWithPopup({
+          authorizationParams: {
+            connection: 'Username-Password-Authentication',
+            login_hint: email,
+          },
+        });
+      } catch (error: any) {
+        setErrors(error.message || 'Login failed');
+      }
     }
   };
 
@@ -71,7 +82,7 @@ const LoginForm: React.FC = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         error={errors.email}
-        autoComplete="email"
+        // autoComplete="email"
       />
 
       <Input
@@ -82,7 +93,7 @@ const LoginForm: React.FC = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         error={errors.password}
-        autoComplete="current-password"
+        // autoComplete="current-password"
       />
 
       <Button type="submit" fullWidth loading={loading}>
