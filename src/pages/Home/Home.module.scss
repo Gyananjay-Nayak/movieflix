@@ -17,6 +17,10 @@
 
 .section {
   margin-bottom: 3rem;
+
+  &:last-child {
+    margin-bottom: 2rem;
+  }
 }
 
 .sectionTitle {
@@ -29,19 +33,20 @@
 
   @media (max-width: 768px) {
     font-size: 1.25rem;
+    margin-bottom: 1rem;
   }
 }
 
-.movieGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5rem;
+// .movieGrid {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+//   gap: 1.5rem;
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1rem;
-  }
-}
+//   @media (max-width: 768px) {
+//     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+//     gap: 1rem;
+//   }
+// }
 
 .placeholder {
   color: $text-secondary;
@@ -53,5 +58,9 @@
   color: $primary-color;
   text-align: center;
   padding: 2rem;
-  font-size: 1.2rem;
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+  }
 }

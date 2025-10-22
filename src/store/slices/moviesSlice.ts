@@ -19,6 +19,29 @@ export const fetchPopularMovies = createAsyncThunk(
   }
 );
 
+export const fetchNowPlayingMovies = createAsyncThunk(
+  'movies/fetchNowPlaying',
+  async () => {
+    const response = await tmdbApi.getNowPlayingMovies();
+    return response.data.results;
+  }
+);
+
+export const fetchUpcomingMovies = createAsyncThunk(
+  'movies/fetchUpcoming',
+  async () => {
+    const response = await tmdbApi.getUpcomingMovies();
+    return response.data.results;
+  }
+);
+
+export const fetchTopRatedMovies = createAsyncThunk(
+  'movies/fetchTopRated',
+  async () => {
+    const response = await tmdbApi.getTopRatedMovies();
+    return response.data.results;
+  }
+);
 
 const moviesSlice = createSlice({
   name: 'movies',
@@ -26,6 +49,7 @@ const moviesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // Popular Movies
       .addCase(fetchPopularMovies.pending, (state) => {
         state.loading = true;
       })
@@ -37,6 +61,18 @@ const moviesSlice = createSlice({
         state.error = action.error.message || 'Failed to fetch popular movies';
         state.loading = false;
       })
+      // Now Playing Movies
+      .addCase(fetchNowPlayingMovies.fulfilled, (state, action) => {
+        state.nowPlaying = action.payload;
+      })
+      // Upcoming Movies
+      .addCase(fetchUpcomingMovies.fulfilled, (state, action) => {
+        state.upcoming = action.payload;
+      })
+      // Top Rated Movies
+      .addCase(fetchTopRatedMovies.fulfilled, (state, action) => {
+        state.topRated = action.payload;
+      });
   },
 });
 

@@ -1,28 +1,50 @@
-import React, {useEffect} from 'react';
-import Header from '../../components/layout/Header/Header';
-import styles from './Home.module.scss';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import React, { useEffect } from "react";
+import Header from "../../components/layout/Header/Header";
+import styles from "./Home.module.scss";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   fetchPopularMovies,
-} from '../../store/slices/moviesSlice';
+  fetchNowPlayingMovies,
+  fetchUpcomingMovies,
+  fetchTopRatedMovies,
+} from "../../store/slices/moviesSlice";
+import MovieList from "../../components/movies/MovieList/MovieList";
 
 const Home: React.FC = () => {
-
   const dispatch = useAppDispatch();
-  const { popular, error } = useAppSelector(
-    (state) => state.movies
-  );
+  const { popular, nowPlaying, upcoming, topRated, loading, error } =
+    useAppSelector((state) => state.movies);
 
   useEffect(() => {
     dispatch(fetchPopularMovies());
+    dispatch(fetchNowPlayingMovies());
+    dispatch(fetchUpcomingMovies());
+    dispatch(fetchTopRatedMovies());
   }, [dispatch]);
 
   useEffect(() => {
     if (popular.length > 0) {
-      console.log('Popular Movies:', popular);
+      console.log("Popular Movies:", popular);
     }
   }, [popular]);
 
+  useEffect(() => {
+    if (nowPlaying.length > 0) {
+      console.log("Now Playing Movies:", nowPlaying);
+    }
+  }, [nowPlaying]);
+
+  useEffect(() => {
+    if (upcoming.length > 0) {
+      console.log("Upcoming Movies:", upcoming);
+    }
+  }, [upcoming]);
+
+  useEffect(() => {
+    if (topRated.length > 0) {
+      console.log("Top Rated Movies:", topRated);
+    }
+  }, [topRated]);
 
   if (error) {
     return (
@@ -36,34 +58,26 @@ const Home: React.FC = () => {
   return (
     <div className={styles.homePage}>
       <Header />
-      
+
       <main className={styles.content}>
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Popular Movies</h2>
-          <div className={styles.movieGrid}>
-            <p className={styles.placeholder}>Loading movies...</p>
-          </div>
+          <MovieList movies={popular} loading={loading} category="popular" />
         </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Now Playing</h2>
-          <div className={styles.movieGrid}>
-            <p className={styles.placeholder}>Loading movies...</p>
-          </div>
+          <MovieList movies={nowPlaying} loading={loading} category="nowPlaying" />
         </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Upcoming</h2>
-          <div className={styles.movieGrid}>
-            <p className={styles.placeholder}>Loading movies...</p>
-          </div>
+          <MovieList movies={upcoming} loading={loading} category="upcoming" />
         </section>
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Top Rated</h2>
-          <div className={styles.movieGrid}>
-            <p className={styles.placeholder}>Loading movies...</p>
-          </div>
+          <MovieList movies={topRated} loading={loading} category="topRated" />
         </section>
       </main>
     </div>
