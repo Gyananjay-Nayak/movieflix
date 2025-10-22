@@ -1,0 +1,107 @@
+@import '../../../styles/variables';
+
+.header {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
+}
+
+.logo {
+  color: $primary-color;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+.profile {
+  position: relative;
+}
+
+.profileButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid $primary-color;
+}
+
+.avatarIcon {
+  font-size: 2.5rem;
+  color: $text-primary;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  border: 1px solid #333;
+  border-radius: 4px;
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.userInfo {
+  padding: 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.userName {
+  color: $text-primary;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.userEmail {
+  color: $text-secondary;
+  margin: 0;
+  font-size: 0.85rem;
+  word-break: break-word;
+}
+
+.logoutButton {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: $text-primary;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(229, 9, 20, 0.1);
+  }
+}

@@ -1,0 +1,51 @@
+@import '../../styles/variables';
+
+.homePage {
+  min-height: 100vh;
+  background-color: $bg-dark;
+}
+
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  color: $text-primary;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 4px solid $primary-color;
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+  }
+}
+
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.placeholder {
+  color: $text-secondary;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+}
