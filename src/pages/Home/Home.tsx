@@ -1,8 +1,38 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Header from '../../components/layout/Header/Header';
 import styles from './Home.module.scss';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+  fetchPopularMovies,
+} from '../../store/slices/moviesSlice';
 
 const Home: React.FC = () => {
+
+  const dispatch = useAppDispatch();
+  const { popular, error } = useAppSelector(
+    (state) => state.movies
+  );
+
+  useEffect(() => {
+    dispatch(fetchPopularMovies());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (popular.length > 0) {
+      console.log('Popular Movies:', popular);
+    }
+  }, [popular]);
+
+
+  if (error) {
+    return (
+      <div className={styles.homePage}>
+        <Header />
+        <div className={styles.error}>Error: {error}</div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.homePage}>
       <Header />
