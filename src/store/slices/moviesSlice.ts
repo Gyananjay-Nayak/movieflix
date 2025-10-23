@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { MoviesState, Movie } from '../../types/movie.types';
+import { MoviesState } from '../../types/movie.types';
 import * as tmdbApi from '../../services/tmdbApi';
 
 const initialState: MoviesState = {
