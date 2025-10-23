@@ -3,6 +3,7 @@ import { RouteObject, Navigate } from 'react-router-dom';
 import Login from '../pages/Login/Login';
 import Home from '../pages/Home/Home';
 import MoviesCategory from '../pages/MoviesCategory/MoviesCategory';
+import Favorites from '../pages/Favorites/Favorites';
 import { useAppSelector } from '../store/hooks';
 
 interface ProtectedRouteProps {
@@ -47,6 +48,14 @@ export const routes: RouteObject[] = [
     element: (
       <ProtectedRoute>
        <MoviesCategory/>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/favorites',
+    element: (
+      <ProtectedRoute>
+       <Favorites/>
       </ProtectedRoute>
     ),
   },

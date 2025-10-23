@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 import { loginUser, clearError } from '../../../store/slices/authSlice';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 import styles from './LoginForm.module.scss';
 
 const LoginForm: React.FC = () => {
-  const { loginWithPopup } = useAuth0();
+  // const { loginWithPopup } = useAuth0();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
@@ -57,16 +57,7 @@ const LoginForm: React.FC = () => {
     e.preventDefault();
     
      if (validateForm()) {
-      try {
-        await loginWithPopup({
-          authorizationParams: {
-            connection: 'Username-Password-Authentication',
-            login_hint: email,
-          },
-        });
-      } catch (error: any) {
-        setErrors(error.message || 'Login failed');
-      }
+      dispatch(loginUser({ email, password }));
     }
   };
 

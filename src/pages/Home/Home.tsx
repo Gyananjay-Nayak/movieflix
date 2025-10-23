@@ -2,18 +2,30 @@ import React, { useEffect } from "react";
 import Header from "../../components/layout/Header/Header";
 import styles from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { getFromLocalStorage } from '../../utils/localStorage';
 import {
   fetchPopularMovies,
   fetchNowPlayingMovies,
   fetchUpcomingMovies,
   fetchTopRatedMovies,
 } from "../../store/slices/moviesSlice";
+import { loadUserFavorites } from '../../store/slices/favoritesSlice';
 import MovieList from "../../components/movies/MovieList/MovieList";
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { popular, nowPlaying, upcoming, topRated, loading, error } =
     useAppSelector((state) => state.movies);
+  const { user } =
+    useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      const allFavorites: any = getFromLocalStorage('all_user_favorites') || {};
+      const userFavorites = allFavorites[user.id] || [];
+      dispatch(loadUserFavorites(userFavorites));
+    }
+  }, [user, dispatch]);
 
   useEffect(() => {
     dispatch(fetchPopularMovies());
@@ -67,7 +79,7 @@ const Home: React.FC = () => {
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Now Playing</h2>
-          <MovieList movies={nowPlaying} loading={loading} category="nowPlaying" />
+          <MovieList movies={nowPlaying} loading={loading} category="now-playing" />
         </section>
 
         <section className={styles.section}>
@@ -77,7 +89,7 @@ const Home: React.FC = () => {
 
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Top Rated</h2>
-          <MovieList movies={topRated} loading={loading} category="topRated" />
+          <MovieList movies={topRated} loading={loading} category="top-rated" />
         </section>
       </main>
     </div>

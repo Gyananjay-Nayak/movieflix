@@ -1,0 +1,194 @@
+@import '../../styles/variables';
+
+.favoritesPage {
+    min-height: 100vh;
+    background-color: $bg-dark;
+}
+
+.content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+
+    @media (max-width: 768px) {
+        padding: 1rem;
+    }
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.title {
+    color: $text-primary;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    padding-left: 0.5rem;
+    border-left: 4px solid $primary-color;
+
+    @media (max-width: 768px) {
+        font-size: 1.5rem;
+    }
+}
+
+.subtitle {
+    color: $text-secondary;
+    font-size: 0.95rem;
+    margin: 0;
+    padding-left: 0.5rem;
+}
+
+
+.movieGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+.movieWrapper {
+    position: relative;
+}
+
+.removeButton {
+    position: absolute;
+    bottom: -2.5rem;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    background-color: $primary-color;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: $secondary-color;
+    }
+}
+
+.empty {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.emptyText {
+    color: $text-primary;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.emptySubtext {
+    color: $text-secondary;
+    font-size: 0.95rem;
+    margin: 0 0 2rem 0;
+}
+
+.browseButton {
+    padding: 0.75rem 2rem;
+    background-color: $primary-color;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+        background-color: $secondary-color;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: $bg-light;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 400px;
+    text-align: center;
+
+    h2 {
+        color: $text-primary;
+        margin: 0 0 2rem 0;
+    }
+
+}
+
+.modalButtons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.cancelButton {
+    padding: 0.75rem 1.5rem;
+    background-color: #333;
+    color: $text-primary;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #444;
+    }
+}
+
+.deleteButton {
+    padding: 0.75rem 1.5rem;
+    background-color: $primary-color;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $secondary-color;
+    }
+}
+
+.actions {
+    margin-bottom: 2rem;
+}
+
+.clearButton {
+    padding: 0.75rem 1.5rem;
+    background-color: rgba(229, 9, 20, 0.1);
+    color: $primary-color;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+        background-color: $primary-color;
+        color: #fff;
+    }
+}

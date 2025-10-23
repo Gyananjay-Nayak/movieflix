@@ -41,10 +41,17 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+      state.isAuthenticated = true;
+      state.loading = false;
+      state.error = null;
+      saveToLocalStorage('user', action.payload);
+    },
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout, clearError, setLoading } = authSlice.actions;
+export const { loginStart, loginSuccess, loginFailure, logout, clearError, setLoading, setUser } = authSlice.actions;
 
 // Simple login action (you can add API call later)
 export const loginUser = (credentials: LoginCredentials ) => (dispatch: any) => {
@@ -55,7 +62,7 @@ export const loginUser = (credentials: LoginCredentials ) => (dispatch: any) => 
     // Simple validation
     if (credentials.email && credentials.password.length >= 6) {
       const user: User = {
-        id: Date.now().toString(),
+        id: credentials.email,
         email: credentials.email,
         name: credentials.email.split('@')[0],
         loginType: 'email'

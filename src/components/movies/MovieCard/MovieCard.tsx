@@ -1,6 +1,8 @@
 import React from 'react';
 import { Movie } from '../../../types/movie.types';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { addToFavorites, removeFromFavorites } from '../../../store/slices/favoritesSlice';
 import styles from './MovieCard.module.scss';
 
 interface MovieCardProps {
@@ -8,6 +10,11 @@ interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+
+    const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
+  const { items: favorites } = useAppSelector((state) => state.favorites);
+
   const imageBaseUrl = process.env.REACT_APP_TMDB_IMAGE_BASE_URL;
   const posterUrl = movie.poster_path
     ? `${imageBaseUrl}/w500${movie.poster_path}`
@@ -17,6 +24,20 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     ? new Date(movie.release_date).getFullYear()
     : 'N/A';
 
+    
+  const isFavorited = favorites.some((m) => m.id === movie.id);
+
+    const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    if (!user) return;
+
+    if (isFavorited) {
+      dispatch(removeFromFavorites({ userId: user.id, movieId: movie.id }));
+    } else {
+      dispatch(addToFavorites({ userId: user.id, movie }));
+    }
+  };
   return (
     <div className={styles.movieCard}>
       <div className={styles.posterContainer}>
@@ -29,6 +50,13 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         <div className={styles.overlay}>
           <button className={styles.playButton}>▶ Play</button>
         </div>
+        <button className={styles.favoriteButton} onClick={handleFavoriteClick}>
+          {isFavorited ? (
+            <FaHeart className={styles.favoritedIcon} />
+          ) : (
+            <FaRegHeart className={styles.favoriteIcon} />
+          )}
+        </button>
       </div>
       
       <div className={styles.info}>

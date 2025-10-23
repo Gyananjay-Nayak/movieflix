@@ -119,3 +119,33 @@
   color: #ffd700;
   font-size: 0.9rem;
 }
+
+.favoriteButton {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+}
+
+.favoriteIcon {
+  font-size: 1.2rem;
+}
+
+.favoritedIcon {
+  font-size: 1.2rem;
+  color: $primary-color;
+}
