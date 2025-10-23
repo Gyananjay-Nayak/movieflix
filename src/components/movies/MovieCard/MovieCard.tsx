@@ -1,6 +1,7 @@
 import React from 'react';
 import { Movie } from '../../../types/movie.types';
 import { FaStar, FaHeart, FaRegHeart } from 'react-icons/fa';
+import { IconBaseProps } from "react-icons";
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { addToFavorites, removeFromFavorites } from '../../../store/slices/favoritesSlice';
 import styles from './MovieCard.module.scss';
@@ -8,6 +9,10 @@ import styles from './MovieCard.module.scss';
 interface MovieCardProps {
   movie: Movie;
 }
+
+const HeartIcon = FaHeart as React.FC<IconBaseProps>;
+const RegHeartIcon = FaRegHeart as React.FC<IconBaseProps>;
+const StarIcon = FaStar as React.FC<IconBaseProps>;
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
 
@@ -52,9 +57,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         </div>
         <button className={styles.favoriteButton} onClick={handleFavoriteClick}>
           {isFavorited ? (
-            <FaHeart className={styles.favoritedIcon} />
+            <HeartIcon className={styles.favoritedIcon} />
           ) : (
-            <FaRegHeart className={styles.favoriteIcon} />
+            <RegHeartIcon className={styles.favoriteIcon} />
           )}
         </button>
       </div>
@@ -64,7 +69,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         <div className={styles.meta}>
           <span className={styles.year}>{releaseYear}</span>
           <span className={styles.rating}>
-            <FaStar className={styles.star} />
+            <StarIcon className={styles.star} />
             {movie.vote_average.toFixed(1)}
           </span>
         </div>

@@ -3,6 +3,10 @@ import { FavoritesState } from '../../types/favorites.types';
 import { Movie } from '../../types/movie.types';
 import { saveToLocalStorage, getFromLocalStorage } from '../../utils/localStorage';
 
+interface UserFavoritesMap {
+  [userId: string]: Movie[];
+}
+
 const initialState: FavoritesState = {
   items: [],
   loading: false,
@@ -39,8 +43,8 @@ const favoritesSlice = createSlice({
 });
 
 //function to save favorites by userId
-const saveFavoritesToStorage = (userId: string, favorites: Movie[]) => {
-  const allFavorites = getFromLocalStorage('all_user_favorites') || {};
+const saveFavoritesToStorage = (userId: string, favorites: Movie[]): void => {
+  const allFavorites: UserFavoritesMap = getFromLocalStorage('all_user_favorites') || {};
   allFavorites[userId] = favorites;
   saveToLocalStorage('all_user_favorites', allFavorites);
 };

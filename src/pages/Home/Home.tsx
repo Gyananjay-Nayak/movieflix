@@ -34,29 +34,6 @@ const Home: React.FC = () => {
     dispatch(fetchTopRatedMovies());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (popular.length > 0) {
-      console.log("Popular Movies:", popular);
-    }
-  }, [popular]);
-
-  useEffect(() => {
-    if (nowPlaying.length > 0) {
-      console.log("Now Playing Movies:", nowPlaying);
-    }
-  }, [nowPlaying]);
-
-  useEffect(() => {
-    if (upcoming.length > 0) {
-      console.log("Upcoming Movies:", upcoming);
-    }
-  }, [upcoming]);
-
-  useEffect(() => {
-    if (topRated.length > 0) {
-      console.log("Top Rated Movies:", topRated);
-    }
-  }, [topRated]);
 
   if (error) {
     return (

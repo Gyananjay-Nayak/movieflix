@@ -14,7 +14,6 @@ export const useAuthSync = () => {
 
   useEffect(() => {
       if (isAuthenticated && auth0User) {
-        console.log('tr')
       const user: User = {
         id: auth0User.sub || '',
         email: auth0User.email || '',

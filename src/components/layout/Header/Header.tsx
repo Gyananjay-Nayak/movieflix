@@ -3,7 +3,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useLocation } from "react-router-dom";
 import { useAppSelector } from "../../../store/hooks";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { IconBaseProps } from "react-icons";
 import styles from "./Header.module.scss";
+
+// Type fix for Icons
+const FaUserCircleIcon = FaUserCircle as React.FC<IconBaseProps>;
+const FaBarsIcon = FaBars as React.FC<IconBaseProps>;
+const FaTimesIcon = FaTimes as React.FC<IconBaseProps>;
 
 const Header: React.FC = () => {
   const { logout } = useAuth0();
@@ -61,7 +67,7 @@ const Header: React.FC = () => {
               className={styles.menuButton}
               onClick={() => setShowSideNav(!showSideNav)}
             >
-              {showSideNav ? <FaTimes /> : <FaBars />}
+              {showSideNav ? <FaTimesIcon /> : <FaBarsIcon />}
             </button>
             <div className={styles.profile}>
               <button
@@ -75,7 +81,7 @@ const Header: React.FC = () => {
                     className={styles.avatar}
                   />
                 ) : (
-                  <FaUserCircle className={styles.avatarIcon} />
+                  <FaUserCircleIcon className={styles.avatarIcon} />
                 )}
               </button>
 
@@ -105,7 +111,7 @@ const Header: React.FC = () => {
           className={styles.closeButton}
           onClick={() => setShowSideNav(false)}
         >
-          <FaTimes />
+          <FaTimesIcon />
         </button>
 
         <Link
