@@ -16,4 +16,8 @@ export interface MoviesState {
   topRated: Movie[];
   loading: boolean;
   error: string | null;
+  categoryMovies: Movie[],
+  categoryPage: number,
+  categoryTotalPages: number,
+  categoryLoading: boolean,
 }

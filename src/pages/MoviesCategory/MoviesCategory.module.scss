@@ -1,0 +1,102 @@
+@import '../../styles/variables';
+
+.categoryPage {
+  min-height: 100vh;
+  background-color: $bg-dark;
+}
+
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: $text-secondary;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.title {
+  color: $text-primary;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  padding-left: 0.5rem;
+  border-left: 4px solid $primary-color;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.pageButton {
+  padding: 0.75rem 1.5rem;
+  background-color: $primary-color;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover:not(:disabled) {
+    background-color: $secondary-color;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pageInfo {
+  color: $text-primary;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.loading {
+  color: $text-secondary;
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.1rem;
+}

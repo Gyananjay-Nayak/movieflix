@@ -9,6 +9,10 @@ const initialState: MoviesState = {
   topRated: [],
   loading: false,
   error: null,
+  categoryMovies: [],
+  categoryPage: 1,
+  categoryTotalPages: 0,
+  categoryLoading: false,
 };
 
 export const fetchPopularMovies = createAsyncThunk(
@@ -43,10 +47,42 @@ export const fetchTopRatedMovies = createAsyncThunk(
   }
 );
 
+export const fetchMoviesByCategory = createAsyncThunk(
+  'movies/fetchByCategory',
+  async ({ category, params }: { category: string; params?: any }) => {
+    let response;
+    
+    switch (category) {
+      case 'popular':
+        response = await tmdbApi.getPopularMovies(params);
+        break;
+      case 'now-playing':
+        response = await tmdbApi.getNowPlayingMovies(params);
+        break;
+      case 'upcoming':
+        response = await tmdbApi.getUpcomingMovies(params);
+        break;
+      case 'top-rated':
+        response = await tmdbApi.getTopRatedMovies(params);
+        break;
+      default:
+        throw new Error('Invalid category');
+    }
+    
+    return response.data;
+  }
+);
+
 const moviesSlice = createSlice({
   name: 'movies',
   initialState,
-  reducers: {},
+  reducers: {
+    clearCategoryMovies: (state) => {
+      state.categoryMovies = [];
+      state.categoryPage = 1;
+      state.categoryTotalPages = 0;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Popular Movies
@@ -72,8 +108,25 @@ const moviesSlice = createSlice({
       // Top Rated Movies
       .addCase(fetchTopRatedMovies.fulfilled, (state, action) => {
         state.topRated = action.payload;
+      })
+
+      // Category Movies with Pagination
+      .addCase(fetchMoviesByCategory.pending, (state) => {
+        state.categoryLoading = true;
+      })
+      .addCase(fetchMoviesByCategory.fulfilled, (state, action) => {
+        state.categoryMovies = action.payload.results;
+        state.categoryPage = action.payload.page;
+        state.categoryTotalPages = action.payload.total_pages;
+        state.categoryLoading = false;
+      })
+      .addCase(fetchMoviesByCategory.rejected, (state, action) => {
+        state.error = action.error.message || 'Failed to fetch movies';
+        state.categoryLoading = false;
       });
+      
   },
 });
 
+export const { clearCategoryMovies } = moviesSlice.actions;
 export default moviesSlice.reducer;

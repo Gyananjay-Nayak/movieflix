@@ -10,9 +10,9 @@ const tmdbApi = axios.create({
   }
 });
 
-export const getPopularMovies = () => tmdbApi.get('/movie/popular');
-export const getNowPlayingMovies = () => tmdbApi.get('/movie/now_playing');
-export const getUpcomingMovies = () => tmdbApi.get('/movie/upcoming');
-export const getTopRatedMovies = () => tmdbApi.get('/movie/top_rated');
+export const getPopularMovies = (params?: any) => tmdbApi.get('/movie/popular',{ params });
+export const getNowPlayingMovies = (params?: any) => tmdbApi.get('/movie/now_playing', { params });
+export const getUpcomingMovies = (params?: any) => tmdbApi.get('/movie/upcoming', { params });
+export const getTopRatedMovies = (params?: any) => tmdbApi.get('/movie/top_rated', { params });
 
 export default tmdbApi;
