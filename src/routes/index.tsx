@@ -4,6 +4,7 @@ import Login from '../pages/Login/Login';
 import Home from '../pages/Home/Home';
 import MoviesCategory from '../pages/MoviesCategory/MoviesCategory';
 import Favorites from '../pages/Favorites/Favorites';
+import SearchResults from '../pages/SearchResults/SearchResults';
 import { useAppSelector } from '../store/hooks';
 
 interface ProtectedRouteProps {
@@ -56,6 +57,14 @@ export const routes: RouteObject[] = [
     element: (
       <ProtectedRoute>
        <Favorites/>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/search',
+    element: (
+      <ProtectedRoute>
+       <SearchResults/>
       </ProtectedRoute>
     ),
   },

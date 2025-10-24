@@ -1,0 +1,51 @@
+@import '../../styles/variables';
+
+.searchResultsPage {
+  min-height: 100vh;
+  background-color: $bg-dark;
+  padding-top: 1rem;
+}
+
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.title {
+  color: $primary-color;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 1rem 0;
+  border-bottom: 2px solid $primary-color;
+  padding-bottom: 0.5rem;
+}
+
+.loading {
+  color: $text-secondary;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.noResults {
+  color: $text-secondary;
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+}
+
+.movieGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+

@@ -11,6 +11,7 @@ import {
 } from "../../store/slices/moviesSlice";
 import { loadUserFavorites } from '../../store/slices/favoritesSlice';
 import MovieList from "../../components/movies/MovieList/MovieList";
+import Banner from '../../components/banner/Banner';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -47,6 +48,7 @@ const Home: React.FC = () => {
   return (
     <div className={styles.homePage}>
       <Header />
+      <Banner />
 
       <main className={styles.content}>
         <section className={styles.section}>
