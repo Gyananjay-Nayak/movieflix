@@ -23,7 +23,11 @@ export const fetchPopularMovies = createAsyncThunk(
   'movies/fetchPopular',
   async () => {
     const response = await tmdbApi.getPopularMovies();
-    return response.data.results;
+    // temp fix for media_type
+    return response.data.results.map((movie: any) => ({
+      ...movie,
+      media_type: 'movie',
+    }));
   }
 );
 
@@ -31,7 +35,11 @@ export const fetchNowPlayingMovies = createAsyncThunk(
   'movies/fetchNowPlaying',
   async () => {
     const response = await tmdbApi.getNowPlayingMovies();
-    return response.data.results;
+
+    return response.data.results.map((movie: any) => ({
+      ...movie,
+      media_type: 'movie',
+    }));
   }
 );
 
@@ -39,7 +47,11 @@ export const fetchUpcomingMovies = createAsyncThunk(
   'movies/fetchUpcoming',
   async () => {
     const response = await tmdbApi.getUpcomingMovies();
-    return response.data.results;
+
+    return response.data.results.map((movie: any) => ({
+      ...movie,
+      media_type: 'movie',
+    }));
   }
 );
 
@@ -47,7 +59,11 @@ export const fetchTopRatedMovies = createAsyncThunk(
   'movies/fetchTopRated',
   async () => {
     const response = await tmdbApi.getTopRatedMovies();
-    return response.data.results;
+
+    return response.data.results.map((movie: any) => ({
+      ...movie,
+      media_type: 'movie',
+    }));
   }
 );
 
@@ -73,7 +89,10 @@ export const fetchMoviesByCategory = createAsyncThunk(
         throw new Error('Invalid category');
     }
     
-    return response.data;
+    return response.data.results.map((movie: any) => ({
+      ...movie,
+      media_type: 'movie',
+    }));
   }
 );
 
