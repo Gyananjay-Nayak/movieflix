@@ -1,5 +1,6 @@
 import React from 'react';
 import { Movie } from '../../../types/movie.types';
+import { Link } from 'react-router-dom';
 import { FaStar, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { IconBaseProps } from "react-icons";
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
@@ -44,7 +45,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     }
   };
   return (
-    <div className={styles.movieCard}>
+    <Link to={`/${movie.media_type}/${movie.id}`} className={styles.movieCard}>
       <div className={styles.posterContainer}>
         <img
           src={posterUrl}
@@ -52,9 +53,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           className={styles.poster}
           loading="lazy"
         />
-        <div className={styles.overlay}>
-          <button className={styles.playButton}>▶ Play</button>
-        </div>
         <button className={styles.favoriteButton} onClick={handleFavoriteClick}>
           {isFavorited ? (
             <HeartIcon className={styles.favoritedIcon} />
@@ -74,7 +72,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

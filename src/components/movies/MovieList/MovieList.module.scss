@@ -97,10 +97,13 @@
   font-weight: 600;
 }
 
-.loading,
 .empty {
   color: $text-secondary;
   text-align: center;
   padding: 3rem;
   font-size: 1.1rem;
+}
+.loaderWrapper{
+  display: flex;
+  justify-content: center;
 }

@@ -7,6 +7,7 @@ export interface Movie {
   release_date: string;
   vote_average: number;
   genre_ids: number[];
+  media_type: string;
 }
 
 export interface MoviesState {
@@ -20,4 +21,8 @@ export interface MoviesState {
   categoryPage: number,
   categoryTotalPages: number,
   categoryLoading: boolean,
+
+  movieDetails: any | null;
+  detailsLoading: boolean;
+  detailsError: string | null;
 }

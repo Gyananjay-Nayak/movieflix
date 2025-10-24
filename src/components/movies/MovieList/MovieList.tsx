@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Movie } from '../../../types/movie.types';
 import MovieCard from '../MovieCard/MovieCard';
+import Loader from '../../common/Loader/Loader';
 import styles from './MovieList.module.scss';
 
 interface MovieListProps {
@@ -14,7 +15,9 @@ const MovieList: React.FC<MovieListProps> = ({ movies, loading, category }) => {
   const navigate = useNavigate();
 
   if (loading) {
-    return <div className={styles.loading}>Loading movies...</div>;
+    return <div className={styles.loaderWrapper}>
+      <Loader/>
+    </div>;
   }
 
   if (movies.length === 0) {

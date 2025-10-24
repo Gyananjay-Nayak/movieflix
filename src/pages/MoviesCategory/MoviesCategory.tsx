@@ -8,6 +8,7 @@ import {
 import Header from "../../components/layout/Header/Header";
 import MovieCard from "../../components/movies/MovieCard/MovieCard";
 import styles from "./MoviesCategory.module.scss";
+import Loader from "../../components/common/Loader/Loader";
 
 const categoryTitles: Record<string, string> = {
   popular: "Popular Movies",
@@ -140,7 +141,9 @@ const MoviesCategory: React.FC = () => {
         </div>
 
         {categoryLoading ? (
-          <div className={styles.loading}>Loading movies...</div>
+          <div className={styles.loading}>
+            <Loader size="large"/>
+          </div>
         ) : (
           <>
             <div className={styles.movieGrid}>

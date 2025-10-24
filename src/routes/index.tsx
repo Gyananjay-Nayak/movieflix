@@ -5,7 +5,9 @@ import Home from '../pages/Home/Home';
 import MoviesCategory from '../pages/MoviesCategory/MoviesCategory';
 import Favorites from '../pages/Favorites/Favorites';
 import SearchResults from '../pages/SearchResults/SearchResults';
+import MovieDetails from '../pages/MovieDetails/MovieDetails';
 import { useAppSelector } from '../store/hooks';
+import Loader from '../components/common/Loader/Loader';
 
 interface ProtectedRouteProps {
   children: React.ReactElement;
@@ -23,7 +25,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         height: '100vh',
         color: '#fff'
       }}>
-        Loading...
+        <Loader fullPage size='large' />
       </div>
     );
   }
@@ -65,6 +67,14 @@ export const routes: RouteObject[] = [
     element: (
       <ProtectedRoute>
        <SearchResults/>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/:type/:id',
+    element: (
+      <ProtectedRoute>
+       <MovieDetails/>
       </ProtectedRoute>
     ),
   },

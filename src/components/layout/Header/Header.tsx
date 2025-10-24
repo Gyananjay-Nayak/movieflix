@@ -53,6 +53,30 @@ const Header: React.FC = () => {
               Popular
             </Link>
             <Link
+              to="/movies/now-playing"
+              className={`${styles.link} ${
+                isActive("/movies/now-playing") ? styles.active : ""
+              }`}
+            >
+              Now Playing
+            </Link>
+            <Link
+              to="/movies/upcoming"
+              className={`${styles.link} ${
+                isActive("/movies/upcoming") ? styles.active : ""
+              }`}
+            >
+              Upcoming
+            </Link>
+            <Link
+              to="/movies/top-rated"
+              className={`${styles.link} ${
+                isActive("/movies/top-rated") ? styles.active : ""
+              }`}
+            >
+              Top Rated
+            </Link>
+            <Link
               to="/favorites"
               className={`${styles.link} ${
                 isActive("/favorites") ? styles.active : ""

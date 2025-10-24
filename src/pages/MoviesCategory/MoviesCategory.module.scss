@@ -95,8 +95,7 @@
 }
 
 .loading {
-  color: $text-secondary;
-  text-align: center;
   padding: 3rem;
-  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
 }

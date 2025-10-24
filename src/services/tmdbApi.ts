@@ -15,4 +15,14 @@ export const getNowPlayingMovies = (params?: any) => tmdbApi.get('/movie/now_pla
 export const getUpcomingMovies = (params?: any) => tmdbApi.get('/movie/upcoming', { params });
 export const getTopRatedMovies = (params?: any) => tmdbApi.get('/movie/top_rated', { params });
 
+export const getDetails = (type: 'movie' | 'tv', id: number, params?: any) => {
+  const endpoint = type === 'movie' ? `/movie/${id}` : `/tv/${id}`;
+  return tmdbApi.get(endpoint, {
+    params: {
+      append_to_response: 'credits',
+      ...params,
+    },
+  });
+};
+
 export default tmdbApi;

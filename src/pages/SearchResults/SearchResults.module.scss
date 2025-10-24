@@ -26,10 +26,9 @@
 }
 
 .loading {
-  color: $text-secondary;
-  text-align: center;
-  padding: 2rem;
-  font-size: 1.2rem;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
 }
 
 .noResults {

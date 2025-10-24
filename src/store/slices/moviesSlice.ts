@@ -13,6 +13,10 @@ const initialState: MoviesState = {
   categoryPage: 1,
   categoryTotalPages: 0,
   categoryLoading: false,
+  // Movie details state
+  movieDetails: null,
+  detailsLoading: false,
+  detailsError: null,
 };
 
 export const fetchPopularMovies = createAsyncThunk(
@@ -73,6 +77,15 @@ export const fetchMoviesByCategory = createAsyncThunk(
   }
 );
 
+export const fetchMovieDetails = createAsyncThunk(
+  'movies/fetchMovieDetails',
+  async ({ id, type = 'movie' }: { id: number; type?: 'movie' | 'tv' }) => {
+    const response = await tmdbApi.getDetails(type, id);
+    return { ...response.data, media_type: type };
+  }
+);
+
+
 const moviesSlice = createSlice({
   name: 'movies',
   initialState,
@@ -81,6 +94,11 @@ const moviesSlice = createSlice({
       state.categoryMovies = [];
       state.categoryPage = 1;
       state.categoryTotalPages = 0;
+    },
+    clearMovieDetails: (state) => {
+      state.movieDetails = null;
+      state.detailsLoading = false;
+      state.detailsError = null;
     },
   },
   extraReducers: (builder) => {
@@ -123,10 +141,23 @@ const moviesSlice = createSlice({
       .addCase(fetchMoviesByCategory.rejected, (state, action) => {
         state.error = action.error.message || 'Failed to fetch movies';
         state.categoryLoading = false;
+      })
+
+      // Movie Details
+      .addCase(fetchMovieDetails.pending, (state) => {
+        state.detailsLoading = true;
+        state.detailsError = null;
+      })
+      .addCase(fetchMovieDetails.fulfilled, (state, action) => {
+        state.movieDetails = action.payload;
+        state.detailsLoading = false;
+      })
+      .addCase(fetchMovieDetails.rejected, (state, action) => {
+        state.detailsError = action.error.message || 'Failed to fetch movie details';
+        state.detailsLoading = false;
       });
-      
   },
 });
 
-export const { clearCategoryMovies } = moviesSlice.actions;
+export const { clearCategoryMovies, clearMovieDetails } = moviesSlice.actions;
 export default moviesSlice.reducer;
