@@ -68,31 +68,34 @@ export const fetchTopRatedMovies = createAsyncThunk(
 );
 
 export const fetchMoviesByCategory = createAsyncThunk(
-  'movies/fetchByCategory',
+  "movies/fetchByCategory",
   async ({ category, params }: { category: string; params?: any }) => {
     let response;
-    
+
     switch (category) {
-      case 'popular':
+      case "popular":
         response = await tmdbApi.getPopularMovies(params);
         break;
-      case 'now-playing':
+      case "now-playing":
         response = await tmdbApi.getNowPlayingMovies(params);
         break;
-      case 'upcoming':
+      case "upcoming":
         response = await tmdbApi.getUpcomingMovies(params);
         break;
-      case 'top-rated':
+      case "top-rated":
         response = await tmdbApi.getTopRatedMovies(params);
         break;
       default:
-        throw new Error('Invalid category');
+        throw new Error("Invalid category");
     }
-    
-    return response.data.results.map((movie: any) => ({
-      ...movie,
-      media_type: 'movie',
-    }));
+    return {
+      results: response.data.results.map((movie: any) => ({
+        ...movie,
+        media_type: "movie",
+      })),
+      page: response.data.page,
+      total_pages: response.data.total_pages,
+    };
   }
 );
 
