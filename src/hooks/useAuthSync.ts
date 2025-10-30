@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import {loginSuccess, logout, setLoading} from '../store/slices/authSlice';
+import { useAppDispatch} from '../store/hooks';
+import {loginSuccess, setLoading} from '../store/slices/authSlice';
 import { User } from '../types/auth.types';
 
 export const useAuthSync = () => {
   const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(setLoading(isLoading));
