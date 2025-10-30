@@ -35,6 +35,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
 
     const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault()
     
     if (!user) return;
 

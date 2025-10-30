@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link, useLocation } from "react-router-dom";
-import { useAppSelector } from "../../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
+import { logout as reduxLogout } from '../../../store/slices/authSlice';
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { IconBaseProps } from "react-icons";
 import styles from "./Header.module.scss";
@@ -12,18 +13,24 @@ const FaBarsIcon = FaBars as React.FC<IconBaseProps>;
 const FaTimesIcon = FaTimes as React.FC<IconBaseProps>;
 
 const Header: React.FC = () => {
-  const { logout } = useAuth0();
+  const { logout: auth0Logout } = useAuth0();
   const { user } = useAppSelector((state) => state.auth);
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(false);
   const [showSideNav, setShowSideNav] = useState(false);
 
+  const dispatch = useAppDispatch()
+
   const handleLogout = () => {
-    logout({
-      logoutParams: {
-        returnTo: window.location.origin,
-      },
-    });
+    dispatch(reduxLogout());
+
+    if (user?.loginType && user.loginType !== "email") {
+      auth0Logout({
+        logoutParams: {
+          returnTo: window.location.origin,
+        },
+      });
+    }
     setShowMenu(false);
   };
 

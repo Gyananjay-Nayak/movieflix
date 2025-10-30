@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import {loginSuccess, logout, setLoading} from '../store/slices/authSlice';
 import { User } from '../types/auth.types';
 
 export const useAuthSync = () => {
   const { user: auth0User, isAuthenticated, isLoading } = useAuth0();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(setLoading(isLoading));
@@ -22,7 +23,7 @@ export const useAuthSync = () => {
         loginType: getLoginType(auth0User.sub || ''),
       };
       dispatch(loginSuccess(user));
-    } else if (!isAuthenticated && !isLoading) {
+    } else if (!isAuthenticated && !isLoading && !user) {
       dispatch(logout());
     }
   }, [isAuthenticated, auth0User, isLoading, dispatch]);
