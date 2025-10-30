@@ -23,8 +23,6 @@ export const useAuthSync = () => {
         loginType: getLoginType(auth0User.sub || ''),
       };
       dispatch(loginSuccess(user));
-    } else if (!isAuthenticated && !isLoading && !user) {
-      dispatch(logout());
     }
   }, [isAuthenticated, auth0User, isLoading, dispatch]);
 };
